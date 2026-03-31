@@ -1,0 +1,57 @@
+slam_toolbox:
+  ros__parameters:
+    # ==========================================
+    # 🚀 CONTINUOUS UPDATE SETTINGS
+    # ==========================================
+    # 1. Update on TIME, not just movement
+    #    (Update map every 0.5 seconds regardless of motion)
+    map_update_interval: 0.5
+    
+    # 2. Force updates even if movement is tiny
+    #    (Setting these to 0.0 disables the "motion filter")
+    minimum_travel_distance: 0.0
+    minimum_travel_heading: 0.0
+    
+    # 3. Increase Match Sensitivity
+    #    (Accepts scans even if they aren't a "perfect" fit)
+    link_match_minimum_response_fine: 0.05 
+    loop_match_minimum_response_coarse: 0.15
+    loop_match_minimum_response_fine: 0.25
+    
+    # ==========================================
+    # STANDARD SETTINGS (Do not change)
+    # ==========================================
+    odom_frame: odom
+    map_frame: map
+    base_frame: base_link
+    scan_topic: /scan
+    mode: mapping
+    debug_logging: false
+    resolution: 0.05
+    max_laser_range: 12.0
+    
+    # Processing Speed Tweaks for Pi 4
+    transform_timeout: 0.2
+    tf_buffer_duration: 30.0
+    throttle_scans: 1
+    
+    # Solver
+    solver_plugin: solver_plugins::CeresSolver
+    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
+    ceres_preconditioner: SCHUR_JACOBI
+    ceres_trust_strategy: LEVENBERG_MARQUARDT
+    ceres_dogleg_type: TRADITIONAL_DOGLEG
+    ceres_loss_function: None
+
+    # Matching Logic
+    use_scan_matching: true
+    use_scan_barycenter: true
+    scan_buffer_size: 10
+    scan_buffer_maximum_scan_distance: 10.0
+    link_scan_maximum_distance: 1.5
+    loop_search_maximum_distance: 3.0
+    do_loop_closing: true 
+    loop_match_minimum_chain_size: 10           
+    loop_match_maximum_variance_coarse: 3.0  
+    
+    enable_interactive_mode: true
